@@ -17,7 +17,7 @@ Keyboard_reflection D:/targetfiles.txt
 # 特别提示
 碍于本人技术力不足，本软件UI由我的舍友（协作者）使用AI开发，仅核心功能由纯人工写成。
 
-关于此项目的屎山代码分析：参见此[issue](https://github.com/Done-0/fuck-u-code/issues/2#issuecomment-3271347973)
+关于此项目的屎山代码分析：参见此[comment](https://github.com/Done-0/fuck-u-code/issues/2#issuecomment-3271347973)
 
 >屎山代码分析[项目地址](https://github.com/Done-0/fuck-u-code)
 
