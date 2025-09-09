@@ -22,4 +22,4 @@ Keyboard_reflection D:/targetfiles.txt
 代码[史山程度分析](https://github.com/Done-0/fuck-u-code)（25/9/9 v1.0）
 
 
-![使用示例](spaghetti.png "屎山代码")
+![屎山代码](spaghetti.png "屎山代码")
