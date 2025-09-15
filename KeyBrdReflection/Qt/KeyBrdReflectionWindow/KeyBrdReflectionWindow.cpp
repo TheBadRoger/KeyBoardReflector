@@ -49,13 +49,15 @@ void KeyBrdReflectionWindow::StartReflectKeys() {
     ProcessingStat();
 
     while (isActiveWindow()) QCoreApplication::processEvents(QEventLoop::AllEvents);
-    WellDelay(100);
+    WellDelay(500);
 
     FileStream.seek(FILE_BEGIN);
     while (!FileStream.atEnd() && !DisruptFlag) {
         FileStream >> keych;
         ProcessKey(keych);
         WellDelay(InputTime);
+
+        if(isActiveWindow()) QCoreApplication::processEvents(QEventLoop::AllEvents);
     }
 
     ui.LAB_TIP_ShowStatus->setText("完成");
