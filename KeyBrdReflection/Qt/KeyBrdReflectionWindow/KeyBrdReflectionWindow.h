@@ -18,19 +18,7 @@ public:
     KeyBrdReflectionWindow(QWidget *parent = nullptr);
     ~KeyBrdReflectionWindow();
 
-    QString TargetFileName;
-    QFile TargetFile;
-    bool DisruptFlag = false;
-    unsigned InputTime = 2;
-
-    void GetTargetFileNameByPath();
-    void GetTargetFileNameBySelector();
-    void ShowTargetFileInfo();
-    void ProcessKey(char tkey);
-    void ProcessingStat();
-    void noProcessingStat();
     void ShowTimeOnBox();
-    void WellDelay(unsigned ms);
 
 public slots:
     void GetTargetFileName();
@@ -40,5 +28,16 @@ public slots:
 
 private:
     Ui::KeyBrdReflectionWindowClass ui;
+    QString TargetFileName;
+    QFile TargetFile;
+    bool DisruptFlag = false;
+    unsigned InputTime = 2;
+    void GetTargetFileNameByPath();
+    void GetTargetFileNameBySelector();
+    void ShowTargetFileInfo();
+    void ProcessKey(char tkey);
+    void ProcessingStat();
+    void noProcessingStat();
+    void WellDelay(unsigned ms);
 };
 
