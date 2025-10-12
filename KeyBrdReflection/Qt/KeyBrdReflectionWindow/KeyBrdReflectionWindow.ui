@@ -52,7 +52,7 @@
      </rect>
     </property>
     <property name="readOnly">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QTextEdit" name="BOX_ShowContent">
@@ -266,22 +266,6 @@
     <hint type="destinationlabel">
      <x>599</x>
      <y>70</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>BOX_ShowPath</sender>
-   <signal>returnPressed()</signal>
-   <receiver>KeyBrdReflectionWindowClass</receiver>
-   <slot>GetTargetFileName()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>297</x>
-     <y>71</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>375</x>
-     <y>24</y>
     </hint>
    </hints>
   </connection>

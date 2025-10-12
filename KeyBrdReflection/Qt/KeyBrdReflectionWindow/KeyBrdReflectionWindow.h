@@ -30,6 +30,7 @@ private:
     Ui::KeyBrdReflectionWindowClass ui;
     QString TargetFileName;
     QFile TargetFile;
+	QDir LastDir;
     bool DisruptFlag = false;
     unsigned InputTime = 2;
     void GetTargetFileNameByPath();

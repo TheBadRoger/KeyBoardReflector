@@ -11,19 +11,13 @@ KeyBrdReflectionWindow::~KeyBrdReflectionWindow()
 {}
 
 void KeyBrdReflectionWindow::GetTargetFileName() {
-    if (ui.BOX_ShowPath->text() == TargetFileName) GetTargetFileNameBySelector();
-    else GetTargetFileNameByPath();
-}
+    QString tPath = QFileDialog::getOpenFileName(this, QStringLiteral("选择文件"),
+        LastDir.path(), "All Files(*.*)", nullptr, QFileDialog::DontResolveSymlinks);
 
-void KeyBrdReflectionWindow::GetTargetFileNameBySelector() {
-    TargetFileName = QFileDialog::getOpenFileName(this, QStringLiteral("选择文件"),
-        QCoreApplication::applicationDirPath(), "All Files(*.*)", nullptr, QFileDialog::DontResolveSymlinks);
+    if (!tPath.isEmpty())
+        LastDir = TargetFileName = tPath;
+
     ui.LAB_TIP_ShowStatus->setText("正在选择文件");
-    ShowTargetFileInfo();
-}
-
-void KeyBrdReflectionWindow::GetTargetFileNameByPath() {
-    TargetFileName = ui.BOX_ShowPath->text();
     ShowTargetFileInfo();
 }
 
