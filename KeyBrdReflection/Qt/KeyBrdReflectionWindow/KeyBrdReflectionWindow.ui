@@ -42,7 +42,7 @@
        <number>30</number>
       </property>
       <property name="bottomMargin">
-       <number>5</number>
+       <number>0</number>
       </property>
       <item>
        <widget class="QLabel" name="LAB_TIT_FilePath">
@@ -84,7 +84,7 @@
        <number>30</number>
       </property>
       <property name="bottomMargin">
-       <number>5</number>
+       <number>0</number>
       </property>
       <item>
        <widget class="QLabel" name="LAB_TIT_ShowFileContentTitle">
@@ -95,44 +95,6 @@
         </property>
         <property name="text">
          <string>文件内容：</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="0">
-     <layout class="QVBoxLayout" name="TextBoxLayout">
-      <property name="leftMargin">
-       <number>30</number>
-      </property>
-      <property name="topMargin">
-       <number>5</number>
-      </property>
-      <property name="rightMargin">
-       <number>30</number>
-      </property>
-      <property name="bottomMargin">
-       <number>5</number>
-      </property>
-      <item>
-       <widget class="QTextEdit" name="BOX_ShowContent">
-        <property name="font">
-         <font>
-          <family>Consolas</family>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="acceptDrops">
-         <bool>false</bool>
-        </property>
-        <property name="lineWrapColumnOrWidth">
-         <number>-1</number>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-        <property name="acceptRichText">
-         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -170,57 +132,7 @@
       <item>
        <widget class="QPushButton" name="BTN_SubmitInputTime">
         <property name="text">
-         <string>确认</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="4" column="0">
-     <layout class="QHBoxLayout" name="StartLineLayout">
-      <property name="leftMargin">
-       <number>30</number>
-      </property>
-      <property name="topMargin">
-       <number>0</number>
-      </property>
-      <property name="rightMargin">
-       <number>30</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="LAB_TIT_ShowStatusTiitle">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>当前状态：</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="LAB_TIP_ShowStatus">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>等待打开文件</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="BTN_DisruptInput">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>中止写入</string>
+         <string>确认时间</string>
         </property>
        </widget>
       </item>
@@ -228,6 +140,44 @@
        <widget class="QPushButton" name="BTN_WriteConfirm">
         <property name="text">
          <string>准备写入</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0">
+     <layout class="QVBoxLayout" name="TextBoxLayout">
+      <property name="leftMargin">
+       <number>30</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QTextEdit" name="BOX_ShowContent">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="acceptDrops">
+         <bool>false</bool>
+        </property>
+        <property name="lineWrapColumnOrWidth">
+         <number>-1</number>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="acceptRichText">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -301,22 +251,6 @@
     <hint type="destinationlabel">
      <x>577</x>
      <y>307</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>BTN_DisruptInput</sender>
-   <signal>clicked()</signal>
-   <receiver>KeyBrdReflectionWindowClass</receiver>
-   <slot>DisruptInput()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>462</x>
-     <y>372</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>572</x>
-     <y>237</y>
     </hint>
    </hints>
   </connection>

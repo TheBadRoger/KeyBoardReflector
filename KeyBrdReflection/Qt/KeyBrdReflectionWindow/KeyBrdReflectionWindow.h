@@ -32,9 +32,7 @@ private:
     QFile TargetFile;
 	QDir LastDir;
     bool DisruptFlag = false;
-    unsigned InputTime = 2;
-    void GetTargetFileNameByPath();
-    void GetTargetFileNameBySelector();
+    unsigned InputTime = 1;
     void ShowTargetFileInfo();
     void ProcessKey(char tkey);
     void ProcessingStat();

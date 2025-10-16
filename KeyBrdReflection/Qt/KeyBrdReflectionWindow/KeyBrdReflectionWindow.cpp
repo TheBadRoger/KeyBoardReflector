@@ -17,7 +17,6 @@ void KeyBrdReflectionWindow::GetTargetFileName() {
     if (!tPath.isEmpty())
         LastDir = TargetFileName = tPath;
 
-    ui.LAB_TIP_ShowStatus->setText("正在选择文件");
     ShowTargetFileInfo();
 }
 
@@ -28,7 +27,6 @@ void KeyBrdReflectionWindow::ShowTargetFileInfo() {
         QMessageBox::critical(this, QString("错误"), QString("打开文件 \"%1\" 失败").arg(TargetFileName));
     else {
         if (ui.BOX_ShowPath->text() != TargetFileName) ui.BOX_ShowPath->setText(TargetFileName);
-        ui.LAB_TIP_ShowStatus->setText("成功打开文件");
         QTextStream ShowFileContent(&TargetFile);
         ui.BOX_ShowContent->setText(ShowFileContent.readAll());
     }
@@ -39,7 +37,6 @@ void KeyBrdReflectionWindow::StartReflectKeys() {
     char keych;
     DisruptFlag = false;
    
-    ui.LAB_TIP_ShowStatus->setText("准备输入，当此窗口进入后台时开始输入");
     ProcessingStat();
 
     while (isActiveWindow()) QCoreApplication::processEvents(QEventLoop::AllEvents);
@@ -54,7 +51,6 @@ void KeyBrdReflectionWindow::StartReflectKeys() {
         if(isActiveWindow()) QCoreApplication::processEvents(QEventLoop::AllEvents);
     }
 
-    ui.LAB_TIP_ShowStatus->setText("完成");
     noProcessingStat();
     FileStream.flush();
 }
@@ -85,17 +81,16 @@ void KeyBrdReflectionWindow::ProcessKey(char tkey) {
 }
 
 void KeyBrdReflectionWindow::ProcessingStat() {
-    ui.BTN_DisruptInput->setEnabled(true);
     ui.BTN_WriteConfirm->setEnabled(false);
     ui.BOX_InputTime->setEnabled(false);
     ui.BOX_ShowContent->setEnabled(false);
     ui.BOX_ShowPath->setEnabled(false);
+	ui.BTN_OpenTargetFile->setEnabled(false);
 }
 
 void KeyBrdReflectionWindow::noProcessingStat() {
-    ui.BTN_DisruptInput->setEnabled(false);
     ui.BTN_WriteConfirm->setEnabled(true);
-    ui.BTN_WriteConfirm->setEnabled(true);
+    ui.BTN_OpenTargetFile->setEnabled(true);
     ui.BOX_InputTime->setEnabled(true);
     ui.BOX_ShowContent->setEnabled(true);
     ui.BOX_ShowPath->setEnabled(true);
