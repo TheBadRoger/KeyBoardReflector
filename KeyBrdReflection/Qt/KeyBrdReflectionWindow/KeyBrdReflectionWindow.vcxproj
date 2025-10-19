@@ -66,8 +66,20 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link />
     <Link>
-      <AdditionalLibraryDirectories>$(Outdir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>KeyBrdReflectionCore_Qt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>KeyBrdReflectionCore_Qt.lib</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\VSProj\vscOL_Keyboard_reflection\KeyBrdReflection\Qt\KeyBrdReflectionCore_Qt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\VSProj\vscOL_Keyboard_reflection\KeyBrdReflection\Qt\KeyBrdReflectionCore_Qt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>KeyBrdReflectionCore_Qt.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -99,6 +111,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ProcessingThread.cpp" />
     <QtRcc Include="KeyBrdReflectionWindow.qrc" />
     <QtUic Include="KeyBrdReflectionWindow.ui" />
     <QtMoc Include="KeyBrdReflectionWindow.h" />
@@ -109,9 +122,7 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KeyBrdReflectionCore_Qt\KeyBrdReflectionCore_Qt.vcxproj">
-      <Project>{e707d9a9-564c-43e9-8819-31c41134baa4}</Project>
-    </ProjectReference>
+    <QtMoc Include="ProcessingThread.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -26,11 +26,13 @@
     <ClInclude Include="keybrdreflectioncore_qt_global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClCompile Include="KeyBrdReflectionCore_Qt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClInclude Include="KeyBrdReflectionCore_Qt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="KeyBrdReflectionCore_Qt.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -30,121 +30,6 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <layout class="QHBoxLayout" name="FileSelectionLayout">
-      <property name="leftMargin">
-       <number>30</number>
-      </property>
-      <property name="topMargin">
-       <number>15</number>
-      </property>
-      <property name="rightMargin">
-       <number>30</number>
-      </property>
-      <property name="bottomMargin">
-       <number>0</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="LAB_TIT_FilePath">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>文件路径：</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="BOX_ShowPath">
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="BTN_OpenTargetFile">
-        <property name="text">
-         <string>打开文件...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="0">
-     <layout class="QHBoxLayout" name="BoxTitleLayout">
-      <property name="leftMargin">
-       <number>30</number>
-      </property>
-      <property name="topMargin">
-       <number>5</number>
-      </property>
-      <property name="rightMargin">
-       <number>30</number>
-      </property>
-      <property name="bottomMargin">
-       <number>0</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="LAB_TIT_ShowFileContentTitle">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>文件内容：</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="3" column="0">
-     <layout class="QHBoxLayout" name="TimeInputLayout">
-      <property name="leftMargin">
-       <number>30</number>
-      </property>
-      <property name="topMargin">
-       <number>5</number>
-      </property>
-      <property name="rightMargin">
-       <number>30</number>
-      </property>
-      <property name="bottomMargin">
-       <number>5</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="LAB_TIT_InputTimeTitle">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>输入时间间隔（≥1ms)：</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="BOX_InputTime"/>
-      </item>
-      <item>
-       <widget class="QPushButton" name="BTN_SubmitInputTime">
-        <property name="text">
-         <string>确认时间</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="BTN_WriteConfirm">
-        <property name="text">
-         <string>准备写入</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
     <item row="2" column="0">
      <layout class="QVBoxLayout" name="TextBoxLayout">
       <property name="leftMargin">
@@ -183,8 +68,11 @@
       </item>
      </layout>
     </item>
-    <item row="5" column="0">
-     <layout class="QHBoxLayout" name="BottomTipLayout">
+    <item row="3" column="0">
+     <layout class="QHBoxLayout" name="TimeInputLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <property name="leftMargin">
        <number>30</number>
       </property>
@@ -195,20 +83,158 @@
        <number>30</number>
       </property>
       <property name="bottomMargin">
-       <number>15</number>
+       <number>0</number>
       </property>
       <item>
-       <widget class="QLabel" name="LAB_TIT_Hint">
+       <widget class="QCheckBox" name="STC_KeepOnTop">
+        <property name="text">
+         <string>窗口始终置顶</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="BTN_WriteConfirm">
+        <property name="text">
+         <string>准备写入</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="FileSelectionLayout">
+      <property name="leftMargin">
+       <number>30</number>
+      </property>
+      <property name="topMargin">
+       <number>15</number>
+      </property>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="LAB_TIT_FilePath">
         <property name="font">
          <font>
-          <bold>true</bold>
+          <pointsize>10</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;提示：开始使用前关闭目标IDE的自动补全和智能提示，尽量删除非英文注释，以保证代码不会出错&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>文件路径：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="BOX_ShowPath">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="BTN_RefreshContent">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>300</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset theme="QIcon::ThemeIcon::ViewRefresh"/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>13</width>
+          <height>13</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="BTN_OpenTargetFile">
+        <property name="text">
+         <string>打开文件...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="BoxTitleLayout">
+      <property name="leftMargin">
+       <number>30</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>30</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="LAB_TIT_ShowFileContentTitle">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>文件内容：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="LAB_ShowFileWordCount">
+        <property name="text">
+         <string>TextLabel</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -216,6 +242,7 @@
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -229,8 +256,8 @@
    <slot>GetTargetFileName()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>531</x>
-     <y>74</y>
+     <x>620</x>
+     <y>46</y>
     </hint>
     <hint type="destinationlabel">
      <x>599</x>
@@ -242,11 +269,11 @@
    <sender>BTN_WriteConfirm</sender>
    <signal>clicked()</signal>
    <receiver>KeyBrdReflectionWindowClass</receiver>
-   <slot>StartReflectKeys()</slot>
+   <slot>StartButtonClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>541</x>
-     <y>370</y>
+     <x>620</x>
+     <y>387</y>
     </hint>
     <hint type="destinationlabel">
      <x>577</x>
@@ -255,42 +282,42 @@
    </hints>
   </connection>
   <connection>
-   <sender>BOX_InputTime</sender>
-   <signal>returnPressed()</signal>
+   <sender>STC_KeepOnTop</sender>
+   <signal>checkStateChanged(Qt::CheckState)</signal>
    <receiver>KeyBrdReflectionWindowClass</receiver>
-   <slot>SetInputTime()</slot>
+   <slot>SwitchWindowOnTop()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>306</x>
-     <y>323</y>
+     <x>134</x>
+     <y>385</y>
     </hint>
     <hint type="destinationlabel">
-     <x>26</x>
-     <y>302</y>
+     <x>234</x>
+     <y>339</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>BTN_SubmitInputTime</sender>
+   <sender>BTN_RefreshContent</sender>
    <signal>clicked()</signal>
    <receiver>KeyBrdReflectionWindowClass</receiver>
-   <slot>SetInputTime()</slot>
+   <slot>RefreshFileContent()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>519</x>
-     <y>321</y>
+     <x>526</x>
+     <y>37</y>
     </hint>
     <hint type="destinationlabel">
-     <x>629</x>
-     <y>172</y>
+     <x>363</x>
+     <y>9</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>GetTargetFileName()</slot>
-  <slot>StartReflectKeys()</slot>
-  <slot>DisruptInput()</slot>
-  <slot>SetInputTime()</slot>
+  <slot>StartButtonClicked()</slot>
+  <slot>RefreshFileContent()</slot>
+  <slot>SwitchWindowOnTop()</slot>
  </slots>
 </ui>

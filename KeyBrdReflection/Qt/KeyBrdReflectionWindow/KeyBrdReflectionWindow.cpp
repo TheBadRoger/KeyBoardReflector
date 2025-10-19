@@ -1,119 +1,106 @@
 ﻿#include "KeyBrdReflectionWindow.h"
-#include "../KeyBrdReflectionCore_Qt/KeyBrdReflectionCore_Qt.h"
+#include <algorithm>
+#include <QWindow>
 
 KeyBrdReflectionWindow::KeyBrdReflectionWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+    ui.LAB_ShowFileWordCount->setText("");
+    setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+
+    Processor->moveToThread(ProcessorThread);
+
+    connect(this, SIGNAL(NoticeRefreshFile()), Processor, SLOT(RefreshFile()));
+    connect(this, SIGNAL(SendFile(QFile*)), Processor, SLOT(ReceiveFile(QFile*)));
+	connect(this, SIGNAL(StartProcessingSignal()), Processor, SLOT(ProcessReflection()));
+    connect(Processor, SIGNAL(ProcessFinishSignal(QString)), this, SLOT(CancelProcessingStat(QString)));
+    connect(Processor, SIGNAL(SendNewStatusText(QString)), this, SLOT(UpdateStatusBarText(QString)));
 }
 
-KeyBrdReflectionWindow::~KeyBrdReflectionWindow()
-{}
+KeyBrdReflectionWindow::~KeyBrdReflectionWindow(){}
 
 void KeyBrdReflectionWindow::GetTargetFileName() {
     QString tPath = QFileDialog::getOpenFileName(this, QStringLiteral("选择文件"),
-        LastDir.path(), "All Files(*.*)", nullptr, QFileDialog::DontResolveSymlinks);
+        LastDirPath, "All Files(*.*)", nullptr, QFileDialog::DontResolveSymlinks);
 
-    if (!tPath.isEmpty())
-        LastDir = TargetFileName = tPath;
+    if (!tPath.isEmpty()) {
+        LastDirPath = CurrentFilePath = tPath;
+        ShowTargetFileInfo();   
+    }
 
-    ShowTargetFileInfo();
+    if (pTargetFile->isOpen())pTargetFile->close();
+}
+
+void KeyBrdReflectionWindow::StartButtonClicked() {
+    if (CurrentFilePath.isEmpty())QMessageBox::critical(this, QString("错误"), "请先选择文件");
+    else {
+        if (ButtonProcessingStat) {
+            ProcessorThread->quit();
+            CancelProcessingStat("已取消");
+            SwitchStartButtonStat(false);
+        }
+        else {
+            ProcessingStat();
+            ProcessorThread->start();
+            emit SendFile(pTargetFile);
+            while (isActiveWindow()) QCoreApplication::processEvents(QEventLoop::AllEvents);
+            if (ProcessorThread->isRunning()) {
+                ui.BTN_WriteConfirm->setEnabled(false);
+                emit StartProcessingSignal();
+                SwitchStartButtonStat(true);
+            }
+        }
+    }
+}
+
+void KeyBrdReflectionWindow::UpdateStatusBarText(QString text) {
+    ui.statusBar->showMessage(text);
+}
+
+void KeyBrdReflectionWindow::SwitchWindowOnTop() {
+    if (ui.STC_KeepOnTop->isChecked())
+        windowHandle()->setFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+    else
+        windowHandle()->setFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
 }
 
 void KeyBrdReflectionWindow::ShowTargetFileInfo() {
-    TargetFile.setFileName(TargetFileName);
-
-    if (!TargetFile.fileName().isEmpty() && !TargetFile.open(QFile::ReadOnly | QFile::Text))
-        QMessageBox::critical(this, QString("错误"), QString("打开文件 \"%1\" 失败").arg(TargetFileName));
-    else {
-        if (ui.BOX_ShowPath->text() != TargetFileName) ui.BOX_ShowPath->setText(TargetFileName);
-        QTextStream ShowFileContent(&TargetFile);
-        ui.BOX_ShowContent->setText(ShowFileContent.readAll());
+    pTargetFile->setFileName(CurrentFilePath);
+    if (pTargetFile->open(QFile::ReadOnly | QFile::Text)) {
+        ui.BOX_ShowPath->setText(CurrentFilePath);
+        ui.BTN_RefreshContent->setEnabled(true);
+        ShowText = QTextStream(pTargetFile).readAll();
+        ui.BOX_ShowContent->setText(ShowText);
+        ui.LAB_ShowFileWordCount->setText(QString("%1 个字符").arg(ShowText.size()));
     }
-}
-
-void KeyBrdReflectionWindow::StartReflectKeys() {
-    QTextStream FileStream(&TargetFile);
-    char keych;
-    DisruptFlag = false;
-   
-    ProcessingStat();
-
-    while (isActiveWindow()) QCoreApplication::processEvents(QEventLoop::AllEvents);
-    WellDelay(500);
-
-    FileStream.seek(FILE_BEGIN);
-    while (!FileStream.atEnd() && !DisruptFlag) {
-        FileStream >> keych;
-        ProcessKey(keych);
-        WellDelay(InputTime);
-
-        if(isActiveWindow()) QCoreApplication::processEvents(QEventLoop::AllEvents);
-    }
-
-    noProcessingStat();
-    FileStream.flush();
-}
-
-void KeyBrdReflectionWindow::DisruptInput() {
-    DisruptFlag = true;
-    noProcessingStat();
-}
-
-void KeyBrdReflectionWindow::ProcessKey(char tkey) {
-    KeyBrdReflectionCore_Qt KeyCore;
-    KeyCore.initializer();
-
-    if (isalpha(tkey)) {
-        if (islower(tkey)) {
-            KeyCore.switch_lower();
-            KeyCore.input_alphakey(tkey);
-        }
-        else if (isupper(tkey)) {
-            KeyCore.switch_upper();
-            KeyCore.input_alphakey(tkey);
-        }
-    }
-    else if (isdigit(tkey)) KeyCore.input_digit(tkey);
-    else if (tkey == ' ') KeyCore.input_space();
-    else if (tkey == '\n') KeyCore.input_enter();
-    else KeyCore.input_special(tkey);
+    else QMessageBox::critical(this, QString("错误"), "打开文件失败");
 }
 
 void KeyBrdReflectionWindow::ProcessingStat() {
-    ui.BTN_WriteConfirm->setEnabled(false);
-    ui.BOX_InputTime->setEnabled(false);
-    ui.BOX_ShowContent->setEnabled(false);
-    ui.BOX_ShowPath->setEnabled(false);
 	ui.BTN_OpenTargetFile->setEnabled(false);
+    ui.BTN_RefreshContent->setEnabled(false);
+	ui.statusBar->showMessage("就绪");
+	SwitchStartButtonStat(true);
 }
 
-void KeyBrdReflectionWindow::noProcessingStat() {
-    ui.BTN_WriteConfirm->setEnabled(true);
+void KeyBrdReflectionWindow::CancelProcessingStat(QString text) {
     ui.BTN_OpenTargetFile->setEnabled(true);
-    ui.BOX_InputTime->setEnabled(true);
-    ui.BOX_ShowContent->setEnabled(true);
-    ui.BOX_ShowPath->setEnabled(true);
+    ui.BTN_RefreshContent->setEnabled(true);
+    ui.BTN_WriteConfirm->setEnabled(true);
+	ui.statusBar->showMessage(text);
+    SwitchStartButtonStat(false);
 }
 
-void KeyBrdReflectionWindow::SetInputTime() {
-    bool op_valid = true;
-    double tmpVal = ui.BOX_InputTime->text().toDouble(&op_valid);
-    if (op_valid) {
-        tmpVal = max(1, tmpVal);
-        InputTime = tmpVal;
-        ShowTimeOnBox();
-    }
-    else if (ui.BOX_InputTime->text().isEmpty()) ShowTimeOnBox();
-    else QMessageBox::critical(this, QString("错误"), QString("值 %1 不合法").arg(ui.BOX_InputTime->text()));
+void KeyBrdReflectionWindow::RefreshFileContent() {
+    ShowTargetFileInfo();
+    emit NoticeRefreshFile();
+    ui.statusBar->showMessage("已刷新");
 }
 
-void KeyBrdReflectionWindow::ShowTimeOnBox() {
-    ui.BOX_InputTime->setText(QString::number(InputTime));
-}
-
-void KeyBrdReflectionWindow::WellDelay(unsigned ms) {
-    QTime _Timer = QTime::currentTime().addMSecs(ms);
-    while (QTime::currentTime() < _Timer)
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+void KeyBrdReflectionWindow::SwitchStartButtonStat(bool flag) {
+    if (flag)
+        ui.BTN_WriteConfirm->setText("取消准备"), ButtonProcessingStat = true;
+    else
+        ui.BTN_WriteConfirm->setText("准备写入"), ButtonProcessingStat = false;
 }

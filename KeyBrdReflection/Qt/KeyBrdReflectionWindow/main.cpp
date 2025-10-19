@@ -7,6 +7,5 @@ int main(int argc, char *argv[])
     KeyBrdReflectionWindow window;
 
     window.show();
-    window.ShowTimeOnBox();
     return app.exec();
 }

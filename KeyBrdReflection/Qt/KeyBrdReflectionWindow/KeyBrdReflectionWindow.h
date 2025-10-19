@@ -1,14 +1,12 @@
 ﻿#pragma once
 
-#define FILE_BEGIN 0x0
-
 #include <QtWidgets/QMainWindow>
 #include <QFileDialog>
 #include <QTextStream>
-#include <QStringConverter>
-#include <qmessagebox.h>
+#include <QMessageBox>
+#include <QThread>
 #include "ui_KeyBrdReflectionWindow.h"
-
+#include "ProcessingThread.h"
 
 class KeyBrdReflectionWindow : public QMainWindow
 {
@@ -18,25 +16,32 @@ public:
     KeyBrdReflectionWindow(QWidget *parent = nullptr);
     ~KeyBrdReflectionWindow();
 
-    void ShowTimeOnBox();
-
 public slots:
     void GetTargetFileName();
-    void StartReflectKeys();
-    void DisruptInput();
-    void SetInputTime();
+    void StartButtonClicked();
+    void CancelProcessingStat(QString text);
+    void UpdateStatusBarText(QString text);
+    void RefreshFileContent();
+    void SwitchWindowOnTop();
+
+signals:
+    void SendFile(QFile* pfile);
+	void StartProcessingSignal();
+	void NoticeRefreshFile();
 
 private:
     Ui::KeyBrdReflectionWindowClass ui;
-    QString TargetFileName;
-    QFile TargetFile;
-	QDir LastDir;
-    bool DisruptFlag = false;
-    unsigned InputTime = 1;
+    QString CurrentFilePath, LastDirPath, ShowText;
+	QFile* pTargetFile = new QFile();
+
+    ProcessingThread* Processor = new ProcessingThread();
+
+    QThread* ProcessorThread = new QThread();
+
+	bool ButtonProcessingStat = false;
+
     void ShowTargetFileInfo();
-    void ProcessKey(char tkey);
     void ProcessingStat();
-    void noProcessingStat();
-    void WellDelay(unsigned ms);
+    void SwitchStartButtonStat(bool flag);
 };
 

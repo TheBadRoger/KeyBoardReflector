@@ -1,8 +1,6 @@
 #pragma once
 
 #include <QtCore/qglobal.h>
-#include <string>
-#include <Windows.h>
 
 #ifndef BUILD_STATIC
 # if defined(KEYBRDREFLECTIONCORE_QT_LIB)

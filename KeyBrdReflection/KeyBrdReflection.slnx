@@ -3,7 +3,7 @@
     <Platform Name="x64" />
   </Configurations>
   <Folder Name="/Qt/">
-    <Project Path="Qt/KeyBrdReflectionCore_Qt/KeyBrdReflectionCore_Qt.vcxproj" Id="e707d9a9-564c-43e9-8819-31c41134baa4" />
+    <Project Path="Qt/KeyBrdReflectionCore_Qt/KeyBrdReflectionCore_Qt.vcxproj" Id="323e60c7-26bb-4576-9e4a-65f34f9f9d90" />
     <Project Path="Qt/KeyBrdReflectionWindow/KeyBrdReflectionWindow.vcxproj" Id="f35a2d05-b9da-4dd8-9ab7-cee6dafe8b04" />
   </Folder>
   <Folder Name="/WinCore/">
