@@ -8,6 +8,5 @@
   </Folder>
   <Folder Name="/WinCore/">
     <Project Path="WinCore/KeyBrdReflectionCore/KeyBrdReflectionCore.vcxproj" Id="ff8900cb-37d6-49b7-837a-0d55b033f4c6" />
-    <Project Path="WinCore/stat_KeyBrdReflectionCore/stat_KeyBrdReflectionCore.vcxproj" Id="54eeba27-7457-49ce-8d42-091df007b8f7" />
   </Folder>
 </Solution>
