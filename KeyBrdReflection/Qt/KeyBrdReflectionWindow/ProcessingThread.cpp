@@ -45,6 +45,7 @@ void ProcessingThread::ReceiveFile(QFile* pfile) {
 }
 
 void ProcessingThread::RefreshFile() {
+    StreamPos = 0, StreamLine = 1, StreamCol = 0;
     pTargetFile->close();
 	pTargetFile->open(QFile::ReadOnly | QFile::Text);
 }

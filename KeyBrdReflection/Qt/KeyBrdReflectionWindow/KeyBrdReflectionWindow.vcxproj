@@ -70,12 +70,12 @@
       <AdditionalDependencies>KeyBrdReflectionCore_Qt.lib</AdditionalDependencies>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\VSProj\vscOL_Keyboard_reflection\KeyBrdReflection\Qt\KeyBrdReflectionCore_Qt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\KeyBrdReflectionCore_Qt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\VSProj\vscOL_Keyboard_reflection\KeyBrdReflection\Qt\KeyBrdReflectionCore_Qt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\KeyBrdReflectionCore_Qt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
